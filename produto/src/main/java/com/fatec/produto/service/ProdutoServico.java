@@ -19,7 +19,7 @@ public class ProdutoServico implements IProdutoServico {
 
 	@Override
 	public List<Produto> consultaTodos() {
-		return null;
+		return repository.findAll();
 	}
 
 	@Override

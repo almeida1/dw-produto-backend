@@ -14,7 +14,7 @@ import jakarta.persistence.Id;
 public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long produtoId;
+	private Long id;
 	private String descricao;
 	private double custo;
 	private int quantidadeNoEstoque;
@@ -24,33 +24,26 @@ public class Produto {
 		setQuantidadeNoEstoque(quantidade);
 		setCusto(custo);
 	}
-
 	public Produto() {
 	}
-
-	public Long getProdutoId() {
-		return produtoId;
+	public Long getId() {
+		return id;
 	}
-
-	public void setProdutoId(Long produtoId) {
-		this.produtoId = produtoId;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
 	public String getDescricao() {
 		return descricao;
 	}
-
 	public void setDescricao(String descricao) {
 		if (descricao == null || descricao.isBlank())
 			throw new IllegalArgumentException("A descricao não deve estar em branco");
 		else
 			this.descricao = descricao;
 	}
-
 	public int getQuantidadeNoEstoque() {
 		return quantidadeNoEstoque;
 	}
-
 	public void setQuantidadeNoEstoque(int quantidade) {
 		try {
 			if (quantidade <= 0)
@@ -61,7 +54,6 @@ public class Produto {
 			throw new IllegalArgumentException("A quantidade deve ser maior que zero");
 		}
 	}
-
 	public double getCusto() {
 		return custo;
 	}
@@ -76,12 +68,10 @@ public class Produto {
 			throw new IllegalArgumentException("O custo deve ser maior que zero");
 		}
 	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(custo, descricao, quantidadeNoEstoque);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,10 +85,8 @@ public class Produto {
 				&& Objects.equals(descricao, other.descricao) && quantidadeNoEstoque == other.quantidadeNoEstoque;
 	}
 
-	@Override
-	public String toString() {
-		return "Produto [produtoId=" + produtoId + ", descricao=" + descricao + ", custo=" + custo
-				+ ", quantidadeNoEstoque=" + quantidadeNoEstoque + "]";
-	}
+	
+
+	
 	
 }
