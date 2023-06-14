@@ -2,6 +2,7 @@ package com.fatec.produto.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -85,6 +86,18 @@ public class APIProdutoController {
 		} catch (NumberFormatException e) {
 			logger.info(">>>>>> api manipula file upload erro de i/o => " + e.getMessage());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id invalido");
+		}
+	}
+	@CrossOrigin
+	@GetMapping("/imadb/{nomeArquivo}")
+	public ResponseEntity<Object> download(@PathVariable String nomeArquivo) {
+		logger.info(">>>>>> api download iniciada...");
+		try {
+			byte[] arquivo = servicoImagem.getImagem(nomeArquivo);
+			return ResponseEntity.status(HttpStatus.OK).body(arquivo);
+		} catch (Exception e) {
+			logger.info(">>>>>> api download dados invalidos - " + nomeArquivo +"-" + e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Dados invalidos");
 		}
 	}
 }

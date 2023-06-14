@@ -41,6 +41,7 @@ public class ImagemServico implements IImagemServico {
 		// **********************************************************
 		Optional<Produto> p = produtoRepository.findById(id);
 		if (p.isPresent()) {
+			logger.info(">>>>>> servico salvar imagem - iniciado...");
 			String nome = arquivo.getOriginalFilename();
 			Path caminhoArquivo = Paths.get("imagens/" + nome);
 			Imagem imagem = new Imagem();
@@ -48,7 +49,7 @@ public class ImagemServico implements IImagemServico {
 			imagem.setNome(arquivo.getOriginalFilename());
 			imagem.setCaminho(caminhoArquivo.toString());
 			imagem.setArquivo(arquivo.getBytes());
-			logger.info(">>>>>> servico salvar imagem - no disco e no db chamado");
+			logger.info(">>>>>> servico salvar imagem - arquivo getSize => " + arquivo.getSize());
 			// **********************************************************
 			// salva no disco e no db
 			// ***********************************************************
