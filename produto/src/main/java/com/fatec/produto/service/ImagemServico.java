@@ -57,19 +57,22 @@ public class ImagemServico implements IImagemServico {
 			// ***********************************************************
 			Files.write(caminhoArquivo, arquivo.getBytes());
 			return Optional.of(imagemRepository.save(imagem));
-		}
-		else {
+		} else {
 			logger.info(">>>>>> servico salvar imagem - id nao encontrado");
 			return Optional.empty();
 		}
 	}
-	
+
 	public List<Imagem> getAll() {
 		return imagemRepository.findAll();
 	}
-	//tratar o erro quando o nome do aquivo nao eh encontrado.
+
+	// tratar o erro quando o nome do aquivo nao eh encontrado.
 	public byte[] getImagem(String nomeArquivo) {
-		Imagem dbImagem = imagemRepository.findByNome(nomeArquivo).get();
-		return dbImagem.getArquivo();
+		Optional<Imagem> dbImagem = imagemRepository.findByNome(nomeArquivo);
+		if (dbImagem.isPresent())
+			return dbImagem.get().getArquivo();
+		else
+			return null;
 	}
 }

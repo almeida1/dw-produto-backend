@@ -2,6 +2,9 @@ package com.fatec.produto.service;
 
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +18,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fatec.produto.model.Imagem;
+import com.fatec.produto.model.ImagemRepository;
 import com.fatec.produto.model.Produto;
 import com.fatec.produto.model.ProdutoRepository;
 
@@ -22,7 +27,7 @@ import com.fatec.produto.model.ProdutoRepository;
 public class LoadDatabase {
 	Logger logger = LogManager.getLogger(this.getClass());
 	@Autowired
-	ImagemServico servico;
+	ImagemRepository imagemRepository;
 	@Bean
 	CommandLineRunner initDatabase(ProdutoRepository repository) {
 		return args -> {
@@ -31,13 +36,30 @@ public class LoadDatabase {
 			Produto produto3 = new Produto("Termoatuador Lavadora Colormaq Electrolux GE", 29.70,40);
 			repository.saveAll(Arrays.asList(produto1, produto2, produto3));
 			logger.info (">>>>> loaddatabase -> registro de produto iniciado ...");
+			//****************************************************************
+			//obtem a imagem do c e realiza o upload para o db no servidor
+			//****************************************************************
 			Path path = Paths.get("c:/temp/produto1.jpg");
 			InputStream arquivo = Files.newInputStream(path);
 			byte[] arquivo2 = arquivo.readAllBytes();
+			//****************************************************************
+			Imagem imagem = new Imagem();
+			imagem.setId(1L); // associa o id do produto ao id da imagem
+			imagem.setNome("produto1.jpg");
+			imagem.setCaminho("imagens/" + imagem.getNome());
+			imagem.setArquivo(arquivo2);
 			logger.info (">>>>> loaddatabase -> tamanho do arquivo => " + arquivo2.length);
-			ArquivoDeImagem multPartFile = new ArquivoDeImagem(arquivo2);
-		
-			servico.salvar(multPartFile, 1);
+			imagemRepository.save(imagem);
 		};
+	}
+	public void upload(String pasta, String nomeDoArquivo, InputStream arquivoCarregado) {
+		String caminhoArquivo = pasta + "/" + nomeDoArquivo;
+		File novoArquivo = new File(caminhoArquivo);
+		try {
+			FileOutputStream saida = new FileOutputStream(novoArquivo);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
