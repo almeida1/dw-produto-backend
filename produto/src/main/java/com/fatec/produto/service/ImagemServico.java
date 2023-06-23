@@ -39,11 +39,13 @@ public class ImagemServico implements IImagemServico {
 		// **********************************************************
 		// Obter informações sobre o arquivo
 		// **********************************************************
+		logger.info(">>>>>> servico salvar imagem - iniciado...");
 		Optional<Produto> p = produtoRepository.findById(id);
 		if (p.isPresent()) {
-			logger.info(">>>>>> servico salvar imagem - iniciado...");
+			logger.info(">>>>>> servico salvar imagem - produto encontrado");
 			String nome = arquivo.getOriginalFilename();
 			Path caminhoArquivo = Paths.get("imagens/" + nome);
+			logger.info(">>>>>> servico salvar imagem - caminho arquivo => " + caminhoArquivo);
 			Imagem imagem = new Imagem();
 			imagem.setId(id); // associa o id do produto ao id da imagem
 			imagem.setNome(arquivo.getOriginalFilename());
@@ -61,11 +63,11 @@ public class ImagemServico implements IImagemServico {
 			return Optional.empty();
 		}
 	}
-
+	
 	public List<Imagem> getAll() {
 		return imagemRepository.findAll();
 	}
-
+	//tratar o erro quando o nome do aquivo nao eh encontrado.
 	public byte[] getImagem(String nomeArquivo) {
 		Imagem dbImagem = imagemRepository.findByNome(nomeArquivo).get();
 		return dbImagem.getArquivo();

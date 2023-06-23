@@ -91,9 +91,11 @@ public class APIProdutoController {
 	@CrossOrigin
 	@GetMapping("/imadb/{nomeArquivo}")
 	public ResponseEntity<Object> download(@PathVariable String nomeArquivo) {
-		logger.info(">>>>>> api download iniciada...");
+		logger.info(">>>>>> api download iniciado..." + nomeArquivo);
 		try {
+			logger.info(">>>>>> api download nome do arquivo=>" + nomeArquivo);
 			byte[] arquivo = servicoImagem.getImagem(nomeArquivo);
+			logger.info(">>>>>> api download =>" + arquivo.length);
 			return ResponseEntity.status(HttpStatus.OK).body(arquivo);
 		} catch (Exception e) {
 			logger.info(">>>>>> api download dados invalidos - " + nomeArquivo +"-" + e.getMessage());

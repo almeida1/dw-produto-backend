@@ -33,19 +33,17 @@ public class ArquivoDeImagem implements MultipartFile {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+	
+		return input.length == 0;
 	}
 
 	@Override
 	public long getSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return input.length;
 	}
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		// TODO Auto-generated method stub
 		return input;
 	}
 

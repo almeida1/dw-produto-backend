@@ -30,11 +30,13 @@ public class LoadDatabase {
 			Produto produto2 = new Produto("Tirante Original Brastemp E Consul De 7 A 12 Kg 11cm", 3.90,20);
 			Produto produto3 = new Produto("Termoatuador Lavadora Colormaq Electrolux GE", 29.70,40);
 			repository.saveAll(Arrays.asList(produto1, produto2, produto3));
-			logger.info (">>>>> loaddatabase -> registro de produto incluido");
-			Path path = Paths.get("imagens/produto1.jpg");
+			logger.info (">>>>> loaddatabase -> registro de produto iniciado ...");
+			Path path = Paths.get("c:/temp/produto1.jpg");
 			InputStream arquivo = Files.newInputStream(path);
 			byte[] arquivo2 = arquivo.readAllBytes();
-			ArquivoDeImagem multPartFile = new ArquivoDeImagem(arquivo2); 
+			logger.info (">>>>> loaddatabase -> tamanho do arquivo => " + arquivo2.length);
+			ArquivoDeImagem multPartFile = new ArquivoDeImagem(arquivo2);
+		
 			servico.salvar(multPartFile, 1);
 		};
 	}
