@@ -38,7 +38,7 @@ public class APIProdutoController {
 	 * Retorna (i) detalhes do produto ou (ii) nao encontrado se o codigo do produto
 	 * nao existir
 	 * 
-	 * @param id - string enviado na interface do usuario
+	 * @param id - codigo do produto enviado pela aplicacao cliente
 	 * @return - 200 OK ou 404 NOT_FOUND
 	 */
 	@CrossOrigin // desabilita o cors do spring security
@@ -52,16 +52,18 @@ public class APIProdutoController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(produto.get());
 	}
-
+	/**
+	 * Consulta todos
+	 * @return - JSON Array com todos os produtos ou um JSON Array vazio
+	 */
 	@CrossOrigin // desabilita o cors do spring security
 	@GetMapping
 	public ResponseEntity<Object> consultaTodos() {
 		logger.info(">>>>>> apicontroller consulta todos");
-
 		return ResponseEntity.status(HttpStatus.OK).body(servicoProduto.consultaTodos());
 	}
 
-	@CrossOrigin
+	@CrossOrigin //desabilita o cors do spring security
 	@PostMapping
 	public ResponseEntity<String> upload(@RequestParam MultipartFile file, @RequestParam String id) {
 		logger.info(">>>>>> api upload iniciada...");

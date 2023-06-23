@@ -37,7 +37,7 @@ public class LoadDatabase {
 			repository.saveAll(Arrays.asList(produto1, produto2, produto3));
 			logger.info (">>>>> loaddatabase -> registro de produto iniciado ...");
 			//****************************************************************
-			//obtem a imagem do c e realiza o upload para o db no servidor
+			//obtem a imagem do c, atribui ao obj imagem e salva no db do servidor
 			//****************************************************************
 			Path path = Paths.get("c:/temp/produto1.jpg");
 			InputStream arquivo = Files.newInputStream(path);
@@ -49,6 +49,7 @@ public class LoadDatabase {
 			imagem.setCaminho("imagens/" + imagem.getNome());
 			imagem.setArquivo(arquivo2);
 			logger.info (">>>>> loaddatabase -> tamanho do arquivo => " + arquivo2.length);
+			//*******************************************************************
 			imagemRepository.save(imagem);
 		};
 	}
@@ -58,7 +59,6 @@ public class LoadDatabase {
 		try {
 			FileOutputStream saida = new FileOutputStream(novoArquivo);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
