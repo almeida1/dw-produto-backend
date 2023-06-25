@@ -81,7 +81,7 @@ public class Produto {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(custo, descricao, quantidadeNoEstoque);
+		return Objects.hash(categoria, custo, descricao, quantidadeNoEstoque);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -92,12 +92,9 @@ public class Produto {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		return Double.doubleToLongBits(custo) == Double.doubleToLongBits(other.custo)
+		return Objects.equals(categoria, other.categoria)
+				&& Double.doubleToLongBits(custo) == Double.doubleToLongBits(other.custo)
 				&& Objects.equals(descricao, other.descricao) && quantidadeNoEstoque == other.quantidadeNoEstoque;
 	}
-
-	
-
-	
-	
+		
 }
