@@ -67,7 +67,11 @@ public class ImagemServico implements IImagemServico {
 		return imagemRepository.findAll();
 	}
 
-	// tratar o erro quando o nome do aquivo nao eh encontrado.
+	/**
+	 * Download de imagens - se o nome do arquivo de imagem existir no db retorna imagem
+	 * senao retorna vazio
+	 * parametro - nome do arquivo de imagem a ser baixado.
+	 */
 	public byte[] getImagem(String nomeArquivo) {
 		Optional<Imagem> dbImagem = imagemRepository.findByNome(nomeArquivo);
 		if (dbImagem.isPresent())
