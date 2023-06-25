@@ -32,7 +32,7 @@ class Req01CadastrarProdutoTests {
 		// Dado - que id esta cadastrado
 		Gson gson = new Gson();
 		String id = "1";
-		Produto re = new Produto("Eletrobomba 110V para Maquina de Lavar e Lava Louças", 51.66, 12);
+		Produto re = new Produto("Eletrobomba 110V para Maquina de Lavar e Lava Louças","maquina de lavar", 51.66, 12);
 		// Quando - o usuario consulta o id 
 		ResponseEntity<String> resposta = testRestTemplate.getForEntity(urlBase + id, String.class);
 		// Entao - retorna not found assertFalse(ro.isPresent());
@@ -44,7 +44,7 @@ class Req01CadastrarProdutoTests {
 	@Test
 	void ct02_quando_consulta_por_id_nao_cadastrado_retorna_erro() throws Exception {
 		// Dado - que id nao esta cadastrado
-		String id = "2";
+		String id = "99";
 		// Quando - o usuario consulta o id 
 		ResponseEntity<String> resposta = testRestTemplate.getForEntity(urlBase + id, String.class);
 		// Entao - retorna not found 
@@ -55,7 +55,7 @@ class Req01CadastrarProdutoTests {
 	@Test
 	void ct03_cadastra_imagem_id_invalido() throws Exception {
 		// Dado - que id do produto esta cadastrado
-		long id = 2L;
+		long id = 99L;
 		Path path1 = Paths.get("E:/imagens/eletrobomba.jpg");
 		boolean exists = Files.exists(path1);
 		assertTrue(exists);
@@ -64,16 +64,5 @@ class Req01CadastrarProdutoTests {
 		assertFalse(servicoDeArmazenamento.salvar(mock, id).isPresent());
 		
 	}
-	@Test
-	void ct04_cadastra_imagem_path_invalido() throws Exception {
-		// Dado - que id do produto esta cadastrado
-		long id = 2L;
-		Path path1 = Paths.get("E:/imagens/eletrobomba.jpg");
-		boolean exists = Files.exists(path1);
-		assertTrue(exists);
-		byte[] arquivo = Files.readAllBytes(path1);
-		MockMultipartFile mock = new MockMultipartFile(path1.toString(),arquivo);
-		assertFalse(servicoDeArmazenamento.salvar(mock, id).isPresent());
-		
-	}
+	
 }

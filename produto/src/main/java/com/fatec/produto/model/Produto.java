@@ -16,10 +16,11 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String descricao;
+	private String categoria;
 	private double custo;
 	private int quantidadeNoEstoque;
 
-	public Produto(String descricao, double custo, int quantidade) {
+	public Produto(String descricao, String categoria, double custo, int quantidade) {
 		setDescricao(descricao);
 		setQuantidadeNoEstoque(quantidade);
 		setCusto(custo);
@@ -40,6 +41,16 @@ public class Produto {
 			throw new IllegalArgumentException("A descricao não deve estar em branco");
 		else
 			this.descricao = descricao;
+	}
+	
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		if (categoria == null || categoria.isBlank())
+			throw new IllegalArgumentException("A categoria não deve estar em branco");
+		else
+			this.categoria = categoria;
 	}
 	public int getQuantidadeNoEstoque() {
 		return quantidadeNoEstoque;
