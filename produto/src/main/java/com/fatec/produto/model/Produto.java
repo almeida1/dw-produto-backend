@@ -22,6 +22,7 @@ public class Produto {
 
 	public Produto(String descricao, String categoria, double custo, int quantidade) {
 		setDescricao(descricao);
+		setCategoria(categoria);
 		setQuantidadeNoEstoque(quantidade);
 		setCusto(custo);
 	}
