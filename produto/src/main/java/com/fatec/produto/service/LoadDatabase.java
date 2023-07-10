@@ -1,7 +1,4 @@
 package com.fatec.produto.service;
-
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import com.fatec.produto.model.Imagem;
 import com.fatec.produto.model.ImagemRepository;
 import com.fatec.produto.model.Produto;
-import com.fatec.produto.model.ProdutoRepository;
+import com.fatec.produto.model.IProdutoRepository;
 
 @Configuration
 public class LoadDatabase {
@@ -29,13 +26,13 @@ public class LoadDatabase {
 	@Autowired
 	ImagemRepository imagemRepository;
 	@Bean
-	CommandLineRunner initDatabase(ProdutoRepository repository) {
+	CommandLineRunner initDatabase(IProdutoRepository repository) {
 		return args -> {
 			Produto produto1 = new Produto("Eletrobomba 110V para Maquina de Lavar e Lava Louças", "maquina de lavar", 51.66, 12);
 			Produto produto2 = new Produto("Tirante Original Brastemp E Consul De 7 A 12 Kg 11cm","lavar louça", 3.90,20);
 			Produto produto3 = new Produto("Termoatuador Lavadora Colormaq Electrolux GE","maquina de lavar", 29.70,40);
 			repository.saveAll(Arrays.asList(produto1, produto2, produto3));
-			logger.info (">>>>> loaddatabase -> registro de produto iniciado ...");
+			logger.info (">>>>> loaddatabase -> 3 produtos cadastrados no db.");
 			//****************************************************************
 			//obtem a imagem do c, atribui ao obj imagem e salva no db do servidor
 			//****************************************************************
@@ -48,7 +45,7 @@ public class LoadDatabase {
 			imagem.setNome("produto1.jpg");
 			imagem.setCaminho("imagens/" + imagem.getNome());
 			imagem.setArquivo(arquivo2);
-			logger.info (">>>>> loaddatabase -> tamanho do arquivo => " + arquivo2.length);
+			logger.info (">>>>> loaddatabase -> upload de arquivo realizado  => " + arquivo2.length);
 			//*******************************************************************
 			imagemRepository.save(imagem);
 		};

@@ -2,7 +2,6 @@ package com.fatec.produto.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,15 +21,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fatec.produto.model.Imagem;
 import com.fatec.produto.model.Produto;
+import com.fatec.produto.service.IProdutoServico;
 import com.fatec.produto.service.ImagemServico;
-import com.fatec.produto.service.ProdutoServico;
 
 @RestController
 @RequestMapping("/api/v1/produtos")
 public class APIProdutoController {
 	Logger logger = LogManager.getLogger(this.getClass());
 	@Autowired
-	ProdutoServico servicoProduto;
+	IProdutoServico servicoProduto;
 	@Autowired
 	ImagemServico servicoImagem;
 

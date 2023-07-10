@@ -73,11 +73,11 @@ public class Produto {
 	public void setCusto(double custo) {
 		try {
 			if (custo <= 0)
-				throw new IllegalArgumentException("O custo deve ser maior que zero");
+				throw new IllegalArgumentException("O custo deve ser numerico maior que zero");
 			else
 				this.custo = custo;
 		} catch (Exception e) {
-			throw new IllegalArgumentException("O custo deve ser maior que zero");
+			throw new IllegalArgumentException("O custo deve ser numerico maior que zero");
 		}
 	}
 	@Override

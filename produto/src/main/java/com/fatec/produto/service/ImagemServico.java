@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fatec.produto.model.Imagem;
 import com.fatec.produto.model.ImagemRepository;
 import com.fatec.produto.model.Produto;
-import com.fatec.produto.model.ProdutoRepository;
+import com.fatec.produto.model.IProdutoRepository;
 
 @Service
 public class ImagemServico implements IImagemServico {
@@ -26,7 +26,7 @@ public class ImagemServico implements IImagemServico {
 	@Autowired
 	private ImagemRepository imagemRepository;
 	@Autowired
-	private ProdutoRepository produtoRepository;
+	private IProdutoRepository produtoRepository;
 
 	private Environment environment = null;
 
