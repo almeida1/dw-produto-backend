@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +29,29 @@ import com.fatec.produto.service.ImagemServico;
 @RequestMapping("/api/v1/produtos")
 public class APIProdutoController {
 	Logger logger = LogManager.getLogger(this.getClass());
-	@Autowired
-	IProdutoServico servicoProduto;
+	private final IProdutoServico produtoServico;
 	@Autowired
 	ImagemServico servicoImagem;
+
+	@Autowired
+	public APIProdutoController(IProdutoServico produtoServico) {
+		this.produtoServico = produtoServico;
+	}
+	// A anotação @RequestBody indica que o Spring deve desserializar o body da
+	// solicitação em um objeto. Este objeto é passado como um parâmetro do método
+
+	@CrossOrigin
+	@PostMapping
+	public ResponseEntity<Object> cadastraProduto(@RequestBody Produto p) {
+		logger.info(">>>>>> apicontroller cadastrar produto iniciado");
+		Optional<Produto> produto = produtoServico.cadastrar(p);
+//		if (produto.isPresent()) {
+//			return ResponseEntity.status(HttpStatus.CREATED).body(produto.get());
+//		} else {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro não esperado ");
+//		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(produto.get());
+	}
 
 	/**
 	 * Retorna (i) detalhes do produto ou (ii) nao encontrado se o codigo do produto
@@ -44,26 +64,28 @@ public class APIProdutoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> consultaPorId(@PathVariable String id) {
 		logger.info(">>>>>> apicontroller consulta por id chamado");
-		Optional<Produto> produto = servicoProduto.consultarPorId(id);
+		Optional<Produto> produto = produtoServico.consultarPorId(id);
 		if (produto.isEmpty()) {
 			logger.info(">>>>>> apicontroller id not found");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(produto.get());
 	}
+
 	/**
 	 * Consulta todos
+	 * 
 	 * @return - JSON Array com todos os produtos ou um JSON Array vazio
 	 */
 	@CrossOrigin // desabilita o cors do spring security
 	@GetMapping
 	public ResponseEntity<Object> consultaTodos() {
 		logger.info(">>>>>> apicontroller consulta todos");
-		return ResponseEntity.status(HttpStatus.OK).body(servicoProduto.consultaTodos());
+		return ResponseEntity.status(HttpStatus.OK).body(produtoServico.consultaTodos());
 	}
 
-	@CrossOrigin //desabilita o cors do spring security
-	@PostMapping
+	@CrossOrigin // desabilita o cors do spring security
+	@PostMapping("/imadb")
 	public ResponseEntity<String> upload(@RequestParam MultipartFile file, @RequestParam String id) {
 		logger.info(">>>>>> api upload iniciada...");
 		try {
@@ -89,6 +111,7 @@ public class APIProdutoController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id invalido");
 		}
 	}
+
 	@CrossOrigin
 	@GetMapping("/imadb/{nomeArquivo}")
 	public ResponseEntity<Object> download(@PathVariable String nomeArquivo) {
@@ -99,7 +122,7 @@ public class APIProdutoController {
 			logger.info(">>>>>> api download =>" + arquivo.length);
 			return ResponseEntity.status(HttpStatus.OK).body(arquivo);
 		} catch (Exception e) {
-			logger.info(">>>>>> api download dados invalidos - " + nomeArquivo +"-" + e.getMessage());
+			logger.info(">>>>>> api download dados invalidos - " + nomeArquivo + "-" + e.getMessage());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Dados invalidos");
 		}
 	}
