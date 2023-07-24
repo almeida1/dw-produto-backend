@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.fatec.produto.model.Imagem;
-import com.fatec.produto.model.ImagemRepository;
+import com.fatec.produto.model.IImagemRepository;
 import com.fatec.produto.model.Produto;
 import com.fatec.produto.model.IProdutoRepository;
 
@@ -24,7 +24,7 @@ import com.fatec.produto.model.IProdutoRepository;
 public class LoadDatabase {
 	Logger logger = LogManager.getLogger(this.getClass());
 	@Autowired
-	ImagemRepository imagemRepository;
+	IImagemRepository imagemRepository;
 	@Bean
 	CommandLineRunner initDatabase(IProdutoRepository repository) {
 		return args -> {
@@ -34,18 +34,31 @@ public class LoadDatabase {
 			repository.saveAll(Arrays.asList(produto1, produto2, produto3));
 			logger.info (">>>>> loaddatabase -> 3 produtos cadastrados no db.");
 			//****************************************************************
-			//obtem a imagem do c, atribui ao obj imagem e salva no db do servidor
+			//upload - obtem a imagem do c, atribui ao obj imagem e salva no db do servidor
 			//****************************************************************
 			Path path = Paths.get("c:/temp/produto1.jpg");
-			InputStream arquivo = Files.newInputStream(path);
-			byte[] arquivo2 = arquivo.readAllBytes();
+			InputStream file = Files.newInputStream(path);
+			byte[] arquivo1 = file.readAllBytes();
 			//****************************************************************
 			Imagem imagem = new Imagem();
 			imagem.setId(1L); // associa o id do produto ao id da imagem
 			imagem.setNome("produto1.jpg");
 			imagem.setCaminho("imagens/" + imagem.getNome());
+			imagem.setArquivo(arquivo1);
+			logger.info (">>>>> loaddatabase -> upload de arquivo imagem realizado  => " + arquivo1.length);
+			//*******************************************************************
+			imagemRepository.save(imagem);
+			//****************************************************************
+			path = Paths.get("c:/temp/produto2.jpg");
+			file= Files.newInputStream(path);
+			byte[] arquivo2 = file.readAllBytes();
+			//****************************************************************
+			imagem = new Imagem();
+			imagem.setId(2L); // associa o id do produto ao id da imagem
+			imagem.setNome("produto2.jpg");
+			imagem.setCaminho("imagens/" + imagem.getNome());
 			imagem.setArquivo(arquivo2);
-			logger.info (">>>>> loaddatabase -> upload de arquivo realizado  => " + arquivo2.length);
+			logger.info (">>>>> loaddatabase -> upload de arquivo imagem realizado  => " + arquivo2.length);
 			//*******************************************************************
 			imagemRepository.save(imagem);
 		};

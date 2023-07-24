@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fatec.produto.model.Imagem;
-import com.fatec.produto.model.ImagemRepository;
+import com.fatec.produto.model.IImagemRepository;
 import com.fatec.produto.model.Produto;
 import com.fatec.produto.model.IProdutoRepository;
 
@@ -24,13 +24,13 @@ public class ImagemServico implements IImagemServico {
 	Logger logger = LogManager.getLogger(this.getClass());
 
 	@Autowired
-	private ImagemRepository imagemRepository;
+	private IImagemRepository imagemRepository;
 	@Autowired
 	private IProdutoRepository produtoRepository;
 
 	private Environment environment = null;
 
-	public ImagemServico(ImagemRepository imagemRepository, Environment environment) {
+	public ImagemServico(IImagemRepository imagemRepository, Environment environment) {
 		this.imagemRepository = imagemRepository;
 		// this.environment = environment;
 	}

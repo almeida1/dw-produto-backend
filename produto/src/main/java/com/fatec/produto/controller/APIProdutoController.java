@@ -126,4 +126,9 @@ public class APIProdutoController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Dados invalidos");
 		}
 	}
+	@CrossOrigin
+	@GetMapping("/imadb")
+	public ResponseEntity<Object> obtemTodasImagens(@PathVariable String nomeArquivo) {
+		return ResponseEntity.status(HttpStatus.OK).body(servicoImagem.getAll());
+	}
 }
