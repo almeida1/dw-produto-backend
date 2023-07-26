@@ -28,13 +28,6 @@ public class ImagemServico implements IImagemServico {
 	@Autowired
 	private IProdutoRepository produtoRepository;
 
-	private Environment environment = null;
-
-	public ImagemServico(IImagemRepository imagemRepository, Environment environment) {
-		this.imagemRepository = imagemRepository;
-		// this.environment = environment;
-	}
-
 	public Optional<Imagem> salvar(MultipartFile arquivo, long id) throws IOException {
 		// **********************************************************
 		// Obter informações sobre o arquivo
@@ -68,9 +61,9 @@ public class ImagemServico implements IImagemServico {
 	}
 
 	/**
-	 * Download de imagens - se o nome do arquivo de imagem existir no db retorna imagem
-	 * senao retorna vazio
-	 * parametro - nome do arquivo de imagem a ser baixado.
+	 * Download de imagens - se o nome do arquivo de imagem existir no db retorna
+	 * imagem senao retorna vazio parametro - nome do arquivo de imagem a ser
+	 * baixado.
 	 */
 	public byte[] getImagem(String nomeArquivo) {
 		Optional<Imagem> dbImagem = imagemRepository.findByNome(nomeArquivo);
@@ -79,6 +72,7 @@ public class ImagemServico implements IImagemServico {
 		else
 			return null;
 	}
+
 	public byte[] getImagemById(Long id) {
 		Optional<Imagem> dbImagem = imagemRepository.findById(id);
 		if (dbImagem.isPresent())

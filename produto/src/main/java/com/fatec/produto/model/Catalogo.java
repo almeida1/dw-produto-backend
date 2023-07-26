@@ -37,5 +37,4 @@ public class Catalogo {
 	public byte[] getImagem() {
 		return imagem;
 	}
-	
 }
