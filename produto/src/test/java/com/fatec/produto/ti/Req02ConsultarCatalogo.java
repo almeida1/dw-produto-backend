@@ -17,8 +17,11 @@ class Req02ConsultarCatalogo {
 	ProdutoServico servico;
 	@Test
 	void test() {
-		List<Catalogo> catalogo = servico.consultaCatalogo();
-		assertEquals(2,catalogo.size());
+		List<Catalogo> lista = servico.consultaCatalogo();
+		for (Catalogo c : lista) {
+            System.out.println("imagem -id => " + c.getId() + "-" + c.getQuantidade());
+        }
+		assertEquals(2,lista.size());
 	}
 
 }

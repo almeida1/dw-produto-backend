@@ -39,27 +39,34 @@ public class LoadDatabase {
 			Path path = Paths.get("c:/temp/produto1.jpg");
 			InputStream file = Files.newInputStream(path);
 			byte[] arquivo1 = file.readAllBytes();
-			//****************************************************************
 			Imagem imagem = new Imagem();
 			imagem.setId(1L); // associa o id do produto ao id da imagem
 			imagem.setNome("produto1.jpg");
 			imagem.setCaminho("imagens/" + imagem.getNome());
 			imagem.setArquivo(arquivo1);
 			logger.info (">>>>> loaddatabase -> upload de arquivo imagem realizado  => " + arquivo1.length);
-			//*******************************************************************
 			imagemRepository.save(imagem);
 			//****************************************************************
 			path = Paths.get("c:/temp/produto2.jpg");
 			file= Files.newInputStream(path);
 			byte[] arquivo2 = file.readAllBytes();
-			//****************************************************************
 			imagem = new Imagem();
 			imagem.setId(2L); // associa o id do produto ao id da imagem
 			imagem.setNome("produto2.jpg");
 			imagem.setCaminho("imagens/" + imagem.getNome());
 			imagem.setArquivo(arquivo2);
 			logger.info (">>>>> loaddatabase -> upload de arquivo imagem realizado  => " + arquivo2.length);
-			//*******************************************************************
+			imagemRepository.save(imagem);
+			//****************************************************************
+			path = Paths.get("c:/temp/produto3.jpg");
+			file= Files.newInputStream(path);
+			byte[] arquivo3 = file.readAllBytes();
+			imagem = new Imagem();
+			imagem.setId(3L); // associa o id do produto ao id da imagem
+			imagem.setNome("produto3.jpg");
+			imagem.setCaminho("imagens/" + imagem.getNome());
+			imagem.setArquivo(arquivo3);
+			logger.info (">>>>> loaddatabase -> upload de arquivo imagem realizado  => " + arquivo3.length);
 			imagemRepository.save(imagem);
 		};
 	}

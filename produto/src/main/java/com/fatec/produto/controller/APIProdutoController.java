@@ -127,8 +127,29 @@ public class APIProdutoController {
 		}
 	}
 	@CrossOrigin
+	@GetMapping("/imadb/{id}/id")
+	public ResponseEntity<Object> downloadById(@PathVariable Long id) {
+		logger.info(">>>>>> api download iniciado..." + id);
+		try {
+			logger.info(">>>>>> api download nome do arquivo=>" + id);
+			byte[] arquivo = servicoImagem.getImagemById(id);
+			logger.info(">>>>>> api download =>" + arquivo.length);
+			return ResponseEntity.status(HttpStatus.OK).body(arquivo);
+		} catch (Exception e) {
+			logger.info(">>>>>> api download dados invalidos - " + id + "-" + e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Dados invalidos");
+		}
+	}
+	@CrossOrigin
 	@GetMapping("/imadb")
-	public ResponseEntity<Object> obtemTodasImagens(@PathVariable String nomeArquivo) {
+	public ResponseEntity<Object> obtemCatalogo() {
+		return ResponseEntity.status(HttpStatus.OK).body(produtoServico.consultaCatalogo());
+	}
+	@CrossOrigin
+	@GetMapping("/imadb/")
+	public ResponseEntity<Object> obtemImagens() {
+		
 		return ResponseEntity.status(HttpStatus.OK).body(servicoImagem.getAll());
 	}
+	
 }

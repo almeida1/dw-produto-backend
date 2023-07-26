@@ -57,17 +57,15 @@ public class ProdutoServico implements IProdutoServico {
 	}
 
 	public List<Catalogo> consultaCatalogo() {
+		logger.info(">>>>>> servico consulta catalogo iniciado");
 		Catalogo c = null;
 		List<Catalogo> lista = new ArrayList<Catalogo>();
 		List<Produto> listaP = repositoryP.findAll();
-		List<Imagem> listaI = repositoryI.findAll();
-		System.out.println(">>>>>> tamanho da listaP => " + listaP.size());
-		System.out.println(">>>>>> tamanho da listaI => " + listaI.size());
+		List<Imagem> listaI = repositoryI.findAll();	
 		for (Produto p : listaP) {
 			for (Imagem i : listaI) {
-				System.out.println(">>>>>> produto  => " + p.getId() + "-" + i.getId());
 				if (p.getId().equals(i.getId())) {
-					c = new Catalogo(p.getId(), p.getDescricao(), p.getCategoria(), p.getCusto(), i.getArquivo());
+					c = new Catalogo(p.getId(), p.getDescricao(), p.getCategoria(), p.getCusto(),p.getQuantidadeNoEstoque(), i.getArquivo());
 					lista.add(c);
 				}
 			}

@@ -79,4 +79,11 @@ public class ImagemServico implements IImagemServico {
 		else
 			return null;
 	}
+	public byte[] getImagemById(Long id) {
+		Optional<Imagem> dbImagem = imagemRepository.findById(id);
+		if (dbImagem.isPresent())
+			return dbImagem.get().getArquivo();
+		else
+			return null;
+	}
 }
