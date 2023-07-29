@@ -30,7 +30,7 @@ public class ImagemServico implements IImagemServico {
 
 	public Optional<Imagem> salvar(MultipartFile arquivo, long id) throws IOException {
 		// **********************************************************
-		// Obter informações sobre o arquivo
+		// Obter informações sobre o arquivo - espera um tipo formdata chave/file
 		// **********************************************************
 		logger.info(">>>>>> servico salvar imagem - iniciado...");
 		Optional<Produto> p = produtoRepository.findById(id);

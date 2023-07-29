@@ -86,7 +86,7 @@ public class APIProdutoController {
 
 	@CrossOrigin // desabilita o cors do spring security
 	@PostMapping("/imadb")
-	public ResponseEntity<String> upload(@RequestParam MultipartFile file, @RequestParam String id) {
+	public ResponseEntity<String> upload(@RequestParam (value = "file") MultipartFile file, @RequestParam String id) {
 		logger.info(">>>>>> api upload iniciada...");
 		try {
 			logger.info(">>>>>> api manipula file upload chamou servico salvar");
