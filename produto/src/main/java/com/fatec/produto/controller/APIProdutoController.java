@@ -29,14 +29,11 @@ import com.fatec.produto.service.ImagemServico;
 @RequestMapping("/api/v1/produtos")
 public class APIProdutoController {
 	Logger logger = LogManager.getLogger(this.getClass());
-	private final IProdutoServico produtoServico;
 	@Autowired
-	ImagemServico servicoImagem;
+	private IProdutoServico produtoServico;
+	@Autowired
+	ImagemServico imagemServico;
 
-	@Autowired
-	public APIProdutoController(IProdutoServico produtoServico) {
-		this.produtoServico = produtoServico;
-	}
 	// A anotação @RequestBody indica que o Spring deve desserializar o body da
 	// solicitação em um objeto. Este objeto é passado como um parâmetro do método
 
@@ -72,17 +69,7 @@ public class APIProdutoController {
 		return ResponseEntity.status(HttpStatus.OK).body(produto.get());
 	}
 
-	/**
-	 * Consulta todos
-	 * 
-	 * @return - JSON Array com todos os produtos ou um JSON Array vazio
-	 */
-	@CrossOrigin // desabilita o cors do spring security
-	@GetMapping
-	public ResponseEntity<Object> consultaTodos() {
-		logger.info(">>>>>> apicontroller consulta todos");
-		return ResponseEntity.status(HttpStatus.OK).body(produtoServico.consultaTodos());
-	}
+	
 
 	@CrossOrigin // desabilita o cors do spring security
 	@PostMapping("/imadb")
@@ -91,7 +78,7 @@ public class APIProdutoController {
 		try {
 			logger.info(">>>>>> api manipula file upload chamou servico salvar");
 			long codProduto = Long.parseLong(id);
-			Optional<Imagem> i = servicoImagem.salvar(file, codProduto);
+			Optional<Imagem> i = imagemServico.salvar(file, codProduto);
 			if (i.isPresent()) {
 				return ResponseEntity.ok().body("Imagem enviada com sucesso");
 			} else {
@@ -118,7 +105,7 @@ public class APIProdutoController {
 		logger.info(">>>>>> api download iniciado..." + nomeArquivo);
 		try {
 			logger.info(">>>>>> api download nome do arquivo=>" + nomeArquivo);
-			byte[] arquivo = servicoImagem.getImagem(nomeArquivo);
+			byte[] arquivo = imagemServico.getImagem(nomeArquivo);
 			logger.info(">>>>>> api download =>" + arquivo.length);
 			return ResponseEntity.status(HttpStatus.OK).body(arquivo);
 		} catch (Exception e) {
@@ -132,7 +119,7 @@ public class APIProdutoController {
 		logger.info(">>>>>> api download iniciado..." + id);
 		try {
 			logger.info(">>>>>> api download nome do arquivo=>" + id);
-			byte[] arquivo = servicoImagem.getImagemById(id);
+			byte[] arquivo = imagemServico.getImagemById(id);
 			logger.info(">>>>>> api download =>" + arquivo.length);
 			return ResponseEntity.status(HttpStatus.OK).body(arquivo);
 		} catch (Exception e) {
@@ -141,15 +128,15 @@ public class APIProdutoController {
 		}
 	}
 	@CrossOrigin
-	@GetMapping("/imadb")
-	public ResponseEntity<Object> obtemCatalogo() {
+	@GetMapping
+	public ResponseEntity<Object> consultaCatalogo() {
 		return ResponseEntity.status(HttpStatus.OK).body(produtoServico.consultaCatalogo());
 	}
 	@CrossOrigin
 	@GetMapping("/imadb/")
 	public ResponseEntity<Object> obtemImagens() {
 		
-		return ResponseEntity.status(HttpStatus.OK).body(servicoImagem.getAll());
+		return ResponseEntity.status(HttpStatus.OK).body(imagemServico.getAll());
 	}
 	
 }

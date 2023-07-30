@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fatec.produto.model.Catalogo;
-import com.fatec.produto.model.IImagemRepository;
 import com.fatec.produto.model.IProdutoRepository;
 import com.fatec.produto.model.Imagem;
 import com.fatec.produto.model.Produto;
@@ -21,14 +20,9 @@ public class ProdutoServico implements IProdutoServico {
 	@Autowired
 	IProdutoRepository repositoryP;
 	@Autowired
-	IImagemRepository repositoryI;
+	IImagemServico imagemServico;
 
-	@Override
-	public List<Produto> consultaTodos() {
-		return repositoryP.findAll();
-	}
-
-	@Override
+		@Override
 	public List<Produto> consultaPorDescricao() {
 		return null;
 	}
@@ -61,7 +55,7 @@ public class ProdutoServico implements IProdutoServico {
 		Catalogo c = null;
 		List<Catalogo> lista = new ArrayList<Catalogo>();
 		List<Produto> listaP = repositoryP.findAll();
-		List<Imagem> listaI = repositoryI.findAll();	
+		List<Imagem> listaI = imagemServico.getAll();	
 		for (Produto p : listaP) {
 			for (Imagem i : listaI) {
 				if (p.getId().equals(i.getId())) {

@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,7 +48,7 @@ public class ImagemServico implements IImagemServico {
 			// **********************************************************
 			// salva no disco e no db
 			// ***********************************************************
-			Files.write(caminhoArquivo, arquivo.getBytes());
+			//Files.write(caminhoArquivo, arquivo.getBytes());
 			return Optional.of(imagemRepository.save(imagem));
 		} else {
 			logger.info(">>>>>> servico salvar imagem - id nao encontrado");

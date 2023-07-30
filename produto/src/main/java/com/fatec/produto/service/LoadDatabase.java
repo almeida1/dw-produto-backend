@@ -1,7 +1,5 @@
 package com.fatec.produto.service;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -70,13 +68,5 @@ public class LoadDatabase {
 			imagemRepository.save(imagem);
 		};
 	}
-	public void upload(String pasta, String nomeDoArquivo, InputStream arquivoCarregado) {
-		String caminhoArquivo = pasta + "/" + nomeDoArquivo;
-		File novoArquivo = new File(caminhoArquivo);
-		try {
-			FileOutputStream saida = new FileOutputStream(novoArquivo);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+	
 }
