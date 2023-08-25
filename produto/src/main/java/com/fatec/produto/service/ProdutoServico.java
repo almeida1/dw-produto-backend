@@ -22,7 +22,7 @@ public class ProdutoServico implements IProdutoServico {
 	@Autowired
 	IImagemServico imagemServico;
 
-		@Override
+	@Override
 	public List<Produto> consultaPorDescricao() {
 		return null;
 	}
@@ -50,16 +50,21 @@ public class ProdutoServico implements IProdutoServico {
 		// excluir produto pelo id
 	}
 
+	/**
+	 * associa o id do produto ao id da imagem e adiciona no catalogo de produtos
+	 * retorna - lista de produtos com a imagem
+	 */
 	public List<Catalogo> consultaCatalogo() {
 		logger.info(">>>>>> servico consulta catalogo iniciado");
 		Catalogo c = null;
 		List<Catalogo> lista = new ArrayList<Catalogo>();
 		List<Produto> listaP = repositoryP.findAll();
-		List<Imagem> listaI = imagemServico.getAll();	
+		List<Imagem> listaI = imagemServico.getAll();
 		for (Produto p : listaP) {
 			for (Imagem i : listaI) {
 				if (p.getId().equals(i.getId())) {
-					c = new Catalogo(p.getId(), p.getDescricao(), p.getCategoria(), p.getCusto(),p.getQuantidadeNoEstoque(), i.getArquivo());
+					c = new Catalogo(p.getId(), p.getDescricao(), p.getCategoria(), p.getCusto(),
+							p.getQuantidadeNoEstoque(), i.getArquivo());
 					lista.add(c);
 				}
 			}

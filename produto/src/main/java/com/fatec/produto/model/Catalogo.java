@@ -31,7 +31,7 @@ public class Catalogo {
 	public double getCusto() {
 		return custo;
 	}
-	public int getQuantidade() {
+	public int getQuantidadeNoEstoque() {
 		return quantidadeNoEstoque;
 	}
 	public byte[] getImagem() {

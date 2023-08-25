@@ -23,5 +23,12 @@ class Req02ConsultarProdutoTests {
 		//entao os detalhes do produto estao disponiveis
 		assertTrue(produto.isPresent());
 	}
-
+	@Test
+	void ct02_consultar_produto_por_id_com_sucesso() {
+		//dado que existe um registro cadastrado - LoadDatabase
+		//quando consulto por id
+		Optional <Produto> produto = servico.consultarPorId("1");
+		//entao os detalhes do produto estao disponiveis
+		assertTrue(produto.isPresent());
+	}
 }
