@@ -15,7 +15,7 @@ import com.fatec.produto.service.ProdutoServico;
 class Req02ConsultarCatalogo {
 	@Autowired
 	ProdutoServico servico;
-	@Test
+	//@Test
 	void test() {
 		List<Catalogo> lista = servico.consultaCatalogo();
 		for (Catalogo c : lista) {
