@@ -18,26 +18,41 @@ import com.fatec.produto.model.Produto;
 public class ProdutoServico implements IProdutoServico {
 	Logger logger = LogManager.getLogger(this.getClass());
 	@Autowired
-	IProdutoRepository repositoryP;
+	IProdutoRepository produtoRepository;
 	@Autowired
 	IImagemServico imagemServico;
 
 	@Override
-	public List<Produto> consultaPorDescricao() {
-		return null;
+	public List<Catalogo> consultaPorDescricao(String descricao) {
+		if (descricao.isBlank() | descricao.isEmpty() ) {
+			return new ArrayList<Catalogo>();
+		} else {
+			List<Produto> produto = produtoRepository.findByDescricaoContaining(descricao);
+			List<Catalogo> catalogo = consultaCatalogo();
+			List<Catalogo> lista = new ArrayList<>();
+			for (Catalogo c : catalogo) {
+				for (Produto p : produto) {
+					if (c.getId().equals(p.getId())) {
+						lista.add(c);
+					}
+				}
+
+			}
+			return lista;
+		}
 	}
 
 	@Override
 	public Optional<Produto> cadastrar(Produto produto) {
 		logger.info(">>>>>> servico cadastrar produto iniciado ");
-		return Optional.ofNullable(repositoryP.save(produto));
+		return Optional.ofNullable(produtoRepository.save(produto));
 	}
 
 	@Override
 	public Optional<Produto> consultarPorId(String id) {
 		logger.info(">>>>>> servico consulta por id chamado");
 		long codProduto = Long.parseLong(id);
-		return repositoryP.findById(codProduto);
+		return produtoRepository.findById(codProduto);
 	}
 
 	@Override
@@ -58,7 +73,7 @@ public class ProdutoServico implements IProdutoServico {
 		logger.info(">>>>>> servico consulta catalogo iniciado");
 		Catalogo c = null;
 		List<Catalogo> lista = new ArrayList<Catalogo>();
-		List<Produto> listaP = repositoryP.findAll();
+		List<Produto> listaP = produtoRepository.findAll();
 		List<Imagem> listaI = imagemServico.getAll();
 		for (Produto p : listaP) {
 			for (Imagem i : listaI) {

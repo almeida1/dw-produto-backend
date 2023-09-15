@@ -7,7 +7,7 @@ import com.fatec.produto.model.Produto;
 
 public interface IProdutoServico {
 	public List<Catalogo> consultaCatalogo();
-	public List<Produto> consultaPorDescricao();
+	public List<Catalogo> consultaPorDescricao(String descricao);
 	public Optional <Produto> cadastrar(Produto produto);
 	public Optional <Produto> consultarPorId(String id);
 	public Optional <Produto> atualizar(Long id, Produto produto);

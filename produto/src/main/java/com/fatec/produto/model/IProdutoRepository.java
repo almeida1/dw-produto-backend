@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IProdutoRepository extends JpaRepository<Produto, Long> {
-	public List <Produto> findAllByDescricaoIgnoreCaseContaining(String descricao);
+	public List <Produto> findByDescricaoContaining(String descricao);
 }
