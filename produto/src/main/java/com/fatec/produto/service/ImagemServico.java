@@ -28,7 +28,7 @@ public class ImagemServico implements IImagemServico {
 	@Autowired
 	private IProdutoRepository produtoRepository;
 
-	public Optional<Imagem> salvar(MultipartFile arquivo, long id) throws IOException {
+	public Optional<Imagem> salvar(MultipartFile arquivo, Long id) throws IOException {
 		// **********************************************************
 		// Obter informações sobre o arquivo - espera um tipo formdata chave/file
 		// **********************************************************

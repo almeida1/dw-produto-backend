@@ -1,6 +1,7 @@
-package com.fatec.produto.ti;
+package com.fatec.produto.tu;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -17,28 +18,28 @@ import com.fatec.produto.model.IImagemRepository;
 import com.fatec.produto.model.IProdutoRepository;
 import com.fatec.produto.model.Imagem;
 import com.fatec.produto.model.Produto;
-import com.fatec.produto.service.ProdutoServico;
-
+import com.fatec.produto.service.IProdutoServico;
 @SpringBootTest
-class Req02ConsultarCatalogo {
+class Req02ConsultarCatalogoTest {
 	@Autowired
-	ProdutoServico servico;
+	private IProdutoServico produtoServico;
 	@Autowired
 	IImagemRepository imagemRepository;
 	@Autowired
-	IProdutoRepository repository;
+	IProdutoRepository produtoRepository;
+	
 	
 	public void setup() {
 		byte[] arquivo1 = null;
-		Produto produto1 = new Produto("Eletrobomba 110V para Maquina de Lavar e Lava Louças", "maquina de lavar",
-				51.66, 12);
-		repository.save(produto1);
+		Produto produto1 = new Produto("Eletrobomba para maquina de lavar", "maquina de lavar", 51.66, 12);
+		produtoRepository.save(produto1);
 		Path path = Paths.get("c:/temp/produto1.jpg");
 		try {
 			InputStream file = Files.newInputStream(path);
 			arquivo1 = file.readAllBytes();
 		} catch (Exception e) {
-			System.out.println("erro no acesso ao arquivo");
+			System.out.println(">>>>>> erro no acesso ao arquivo");
+			fail("erro");
 		}
 		Imagem imagem = new Imagem();
 		imagem.setId(produto1.getId()); // associa o id do produto ao id da imagem
@@ -47,16 +48,18 @@ class Req02ConsultarCatalogo {
 		imagem.setArquivo(arquivo1);
 
 		imagemRepository.save(imagem);
+		System.out.println("quantidade de registros no repositorio imagem=>" + imagemRepository.count());
 	}
-
 	@Test
-	void test() {
+	public void ct01_quando_existem_itens_no_catalogo_consulta_retornar_vazio_false() {
 		setup();
-		List<Catalogo> lista = servico.consultaCatalogo();
-		for (Catalogo c : lista) {
-            System.out.println("imagem -id => " + c.getId() + "-" + c.getQuantidadeNoEstoque());
-        }
-		assertEquals(1,lista.size());
+		List<Catalogo> catalogo = produtoServico.consultaCatalogo();
+		assertFalse(catalogo.isEmpty());
 	}
-
+	@Test
+	public void ct02_quando_existem_itens_no_catalogo_consulta_retornar_vazio_false() {
+		setup();
+		List<Catalogo> catalogo = produtoServico.consultaPorDescricao("para");
+		assertFalse(catalogo.isEmpty());
+	}
 }

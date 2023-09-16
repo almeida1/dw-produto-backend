@@ -24,11 +24,14 @@ public class ProdutoServico implements IProdutoServico {
 
 	@Override
 	public List<Catalogo> consultaPorDescricao(String descricao) {
-		if (descricao.isBlank() | descricao.isEmpty() ) {
-			return new ArrayList<Catalogo>();
+		if (descricao.isBlank() || descricao.isEmpty() ) {
+			return new ArrayList<>();
 		} else {
+			logger.info(">>>>>> servico consultar por descricao " + descricao);
 			List<Produto> produto = produtoRepository.findByDescricaoContaining(descricao);
+			logger.info(">>>>>> servico consultar por descricao achou produto=> " + produto.size());
 			List<Catalogo> catalogo = consultaCatalogo();
+			logger.info(">>>>>> servico consultar por descricao achou catalogo=> " + catalogo.size());
 			List<Catalogo> lista = new ArrayList<>();
 			for (Catalogo c : catalogo) {
 				for (Produto p : produto) {
@@ -72,11 +75,14 @@ public class ProdutoServico implements IProdutoServico {
 	public List<Catalogo> consultaCatalogo() {
 		logger.info(">>>>>> servico consulta catalogo iniciado");
 		Catalogo c = null;
-		List<Catalogo> lista = new ArrayList<Catalogo>();
+		List<Catalogo> lista = new ArrayList<>();
 		List<Produto> listaP = produtoRepository.findAll();
+		logger.info(">>>>>> servico consulta catalogo qtde de produto =>" + produtoRepository.count());
 		List<Imagem> listaI = imagemServico.getAll();
+		logger.info(">>>>>> servico consulta catalogo qtde de imagens =>" + imagemServico.getAll().size());
 		for (Produto p : listaP) {
 			for (Imagem i : listaI) {
+				logger.info(">>>>>> servico consulta catalogo id =>" + p.getId() + "-" + i.getId());
 				if (p.getId().equals(i.getId())) {
 					c = new Catalogo(p.getId(), p.getDescricao(), p.getCategoria(), p.getCusto(),
 							p.getQuantidadeNoEstoque(), i.getArquivo());
@@ -84,6 +90,7 @@ public class ProdutoServico implements IProdutoServico {
 				}
 			}
 		}
+		logger.info(">>>>>> servico consulta catalogo catalogo =>" + lista.size());
 		return lista;
 	}
 }
