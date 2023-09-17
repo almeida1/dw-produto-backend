@@ -60,12 +60,12 @@ public class ProdutoServico implements IProdutoServico {
 
 	@Override
 	public Optional<Produto> atualizar(Long id, Produto produto) {
-		return Optional.empty();
+		return Optional.ofNullable(produtoRepository.save(produto));
 	}
 
 	@Override
 	public void excluir(Long id) {
-		// excluir produto pelo id
+		produtoRepository.deleteById(id);
 	}
 
 	/**
