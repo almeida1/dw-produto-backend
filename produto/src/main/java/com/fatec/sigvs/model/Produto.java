@@ -1,4 +1,4 @@
-package com.fatec.produto.model;
+package com.fatec.sigvs.model;
 
 import java.util.Objects;
 

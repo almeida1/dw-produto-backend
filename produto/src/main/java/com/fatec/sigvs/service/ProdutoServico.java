@@ -1,4 +1,4 @@
-package com.fatec.produto.service;
+package com.fatec.sigvs.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fatec.produto.model.Catalogo;
-import com.fatec.produto.model.IProdutoRepository;
-import com.fatec.produto.model.Imagem;
-import com.fatec.produto.model.Produto;
+import com.fatec.sigvs.model.Catalogo;
+import com.fatec.sigvs.model.IProdutoRepository;
+import com.fatec.sigvs.model.Imagem;
+import com.fatec.sigvs.model.Produto;
 
 @Service
 public class ProdutoServico implements IProdutoServico {

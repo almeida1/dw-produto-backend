@@ -1,4 +1,4 @@
-package com.fatec.produto.model;
+package com.fatec.sigvs.model;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;

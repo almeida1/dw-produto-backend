@@ -1,4 +1,4 @@
-package com.fatec.produto.ti;
+package com.fatec.sigvs.ti;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,10 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
-import com.fatec.produto.model.IImagemRepository;
-import com.fatec.produto.model.IProdutoRepository;
-import com.fatec.produto.model.Imagem;
-import com.fatec.produto.model.Produto;
+import com.fatec.sigvs.model.IImagemRepository;
+import com.fatec.sigvs.model.IProdutoRepository;
+import com.fatec.sigvs.model.Imagem;
+import com.fatec.sigvs.model.Produto;
 import com.google.gson.Gson;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)

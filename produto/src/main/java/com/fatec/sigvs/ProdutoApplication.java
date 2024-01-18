@@ -1,4 +1,4 @@
-package com.fatec.produto;
+package com.fatec.sigvs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

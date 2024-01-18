@@ -1,9 +1,9 @@
-package com.fatec.produto.service;
+package com.fatec.sigvs.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.fatec.produto.model.Catalogo;
-import com.fatec.produto.model.Produto;
+import com.fatec.sigvs.model.Catalogo;
+import com.fatec.sigvs.model.Produto;
 
 public interface IProdutoServico {
 	public List<Catalogo> consultaCatalogo();

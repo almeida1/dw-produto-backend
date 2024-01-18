@@ -1,4 +1,4 @@
-package com.fatec.produto.model;
+package com.fatec.sigvs.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

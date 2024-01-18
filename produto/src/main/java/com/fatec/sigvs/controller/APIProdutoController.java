@@ -1,4 +1,4 @@
-package com.fatec.produto.controller;
+package com.fatec.sigvs.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fatec.produto.model.Imagem;
-import com.fatec.produto.model.Produto;
-import com.fatec.produto.service.IProdutoServico;
-import com.fatec.produto.service.ImagemServico;
+import com.fatec.sigvs.model.Imagem;
+import com.fatec.sigvs.model.Produto;
+import com.fatec.sigvs.service.IProdutoServico;
+import com.fatec.sigvs.service.ImagemServico;
 
 @RestController
 @RequestMapping("/api/v1/produtos")
@@ -40,7 +40,7 @@ public class APIProdutoController {
 	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<Object> cadastraProduto(@RequestBody Produto p) {
-		logger.info(">>>>>> apicontroller cadastrar produto iniciado");
+		logger.info(">>>>>> apicontroller cadastrar produto iniciado...");
 		Optional<Produto> produto = produtoServico.cadastrar(p);
 //		if (produto.isPresent()) {
 //			return ResponseEntity.status(HttpStatus.CREATED).body(produto.get());
@@ -74,7 +74,7 @@ public class APIProdutoController {
 	@CrossOrigin // desabilita o cors do spring security
 	@PostMapping("/imadb")
 	public ResponseEntity<String> upload(@RequestParam (value = "file") MultipartFile file, @RequestParam String id) {
-		logger.info(">>>>>> api upload iniciada...");
+		logger.info(">>>>>> apicontroller upload iniciada...");
 		try {
 			logger.info(">>>>>> api manipula file upload chamou servico salvar");
 			long codProduto = Long.parseLong(id);

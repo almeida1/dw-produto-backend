@@ -1,4 +1,4 @@
-package com.fatec.produto.service;
+package com.fatec.sigvs.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fatec.produto.model.Imagem;
+import com.fatec.sigvs.model.Imagem;
 
 public interface IImagemServico {
 	public Optional<Imagem> salvar(MultipartFile arquivo, Long id) throws IOException;

@@ -1,4 +1,4 @@
-package com.fatec.produto.service;
+package com.fatec.sigvs.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fatec.produto.model.Imagem;
-import com.fatec.produto.model.IImagemRepository;
-import com.fatec.produto.model.Produto;
-import com.fatec.produto.model.IProdutoRepository;
+import com.fatec.sigvs.model.IImagemRepository;
+import com.fatec.sigvs.model.IProdutoRepository;
+import com.fatec.sigvs.model.Imagem;
+import com.fatec.sigvs.model.Produto;
 
 @Service
 public class ImagemServico implements IImagemServico {
